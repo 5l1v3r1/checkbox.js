@@ -5,12 +5,24 @@
     <script src="https://raw.githubusercontent.com/unixpickle/crystal/master/crystal.js"></script>
     <script src="checkbox.js"></script>
     <script>
+    var checkbox;
     window.onload = function() {
-      var c = new window.checkboxjs.Checkbox(40);
-      document.body.appendChild(c.element());
+      checkbox = new window.checkboxjs.Checkbox(20, [101/255, 188/255,
+        212/255], true);
+      document.body.appendChild(checkbox.element());
     };
+    function makeGreen() {
+      checkbox.setColor([0, 1, 0]);
+    }
+    function makeBlue() {
+      checkbox.setColor([101/255, 188/255,
+        212/255]);
+    }
     </script>
   </head>
   <body>
+    <button onclick="makeGreen()">Make Green</button>
+    <button onclick="makeBlue()">Make Blue</button>
+    <br />
   </body>
 </html>
