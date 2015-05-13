@@ -1,6 +1,6 @@
 # checkbox.js
 
-This will be a beautiful checkbox for the web.
+This is a beautiful checkbox for the web.
 
 # Dependencies
 
