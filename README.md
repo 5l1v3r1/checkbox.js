@@ -6,6 +6,24 @@ This is a beautiful checkbox for the web.
 
 This depends on [crystal](https://github.com/unixpickle/crystal). Crystal must be included before the checkbox is used.
 
+# Usage
+
+Simply include the checkbox.js JavaScript file in your webpage and then instantiate a checkbox as follows:
+
+```javascript
+var checkbox = new window.checkboxjs.Checkbox(color);
+```
+
+Color must be an array with three numeric values between 0 and 1. These values represent the red, green and blue color components of the check color.
+
+Once your checkbox has been created, you can use the following functions on it:
+
+ * element() - get a DOM element to add to your webpage
+ * getChecked() - get a boolean indicating whether the checkbox is checked.
+ * setChecked(flag) - set whether the checkbox is checked.
+ * setColor(color) - change the color of the checkmark.
+ * setVisible(flag) - set whether or not the checkbox is on-screen. While the checkbox is visible, it listens for screen resolution updates from crystal. Thus, **you must remember to setVisible(true) when creating a checkbox and to setVisible(false) when you no longer need it.**
+
 # LICENSE
 
 ```

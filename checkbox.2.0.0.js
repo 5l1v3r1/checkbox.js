@@ -83,14 +83,14 @@
     this._updateResolution();
   }
 
+  // element returns an element for the checkbox.
+  Checkbox.prototype.element = function() {
+    return this._element;
+  };
+
   // getChecked returns the checked state of the checkbox.
   Checkbox.prototype.getChecked = function() {
     return this._state.checked;
-  };
-
-  // getElement returns an element for the checkbox.
-  Checkbox.prototype.getElement = function() {
-    return this._element;
   };
 
   // setChecked will change the state of the checkbox.

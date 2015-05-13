@@ -3,14 +3,14 @@
   <head>
     <title>Checkbox</title>
     <script src="https://raw.githubusercontent.com/unixpickle/crystal/master/crystal.js"></script>
-    <script src="checkbox.1.0.0.js"></script>
+    <script src="checkbox.2.0.0.js"></script>
     <script>
     var checkbox;
     window.onload = function() {
       checkbox = new window.checkboxjs.Checkbox([101/255, 188/255, 212/255],
         true);
       checkbox.setVisible(true);
-      document.body.appendChild(checkbox.getElement());
+      document.body.appendChild(checkbox.element());
     };
     function makeGreen() {
       checkbox.setColor([0, 1, 0]);
