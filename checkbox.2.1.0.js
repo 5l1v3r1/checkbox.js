@@ -92,6 +92,16 @@
   Checkbox.prototype.getChecked = function() {
     return this._state.checked;
   };
+  
+  // getColor returns the current color of the checkbox.
+  Checkbox.prototype.getColor = function() {
+    return this._color.slice();
+  };
+  
+  // getVisible returns whether or not the checkbox is visible.
+  Checkbox.prototype.getVisible = function() {
+    return this._visible;
+  };
 
   // setChecked will change the state of the checkbox.
   Checkbox.prototype.setChecked = function(checked) {
