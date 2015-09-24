@@ -8,7 +8,7 @@ This depends on [crystal](https://github.com/unixpickle/crystal). Crystal must b
 
 # Usage
 
-Simply include the checkbox.js JavaScript file in your webpage and then instantiate a checkbox as follows:
+Simply include the checkbox.2.1.0.js JavaScript file in your webpage and then instantiate a checkbox as follows:
 
 ```javascript
 var checkbox = new window.checkboxjs.Checkbox(color, [checked]);
@@ -27,6 +27,29 @@ Once your checkbox has been created, you can use the following functions on it:
  * setChecked(flag) - set whether the checkbox is checked.
  * setColor(color) - change the color of the checkmark.
  * setVisible(flag) - set whether or not the checkbox is on-screen. While the checkbox is visible, it listens for screen resolution updates from crystal. Thus, **you must remember to setVisible(true) when creating a checkbox and to setVisible(false) when you no longer need it.**
+
+# Usage of 3.0
+
+A new version of checkbox.js is underway. This is how it will be used.
+
+Include the checkbox.3.0.0.js file in your webpage:
+
+```html
+<script src="checkbox.3.0.0.js"></script>
+```
+
+Now you can instantiate a checkbox as follows:
+
+```javascript
+var checkbox = new window.checkboxjs.Checkbox();
+```
+
+Once your checkbox has been created, you can use the following functions on it:
+
+ * element() - get a DOM element to add to your webpage. Setting the CSS `color` of this element will color the checkbox accordingly.
+ * getChecked() - get a boolean indicating whether the checkbox is checked.
+ * setChecked(flag) - set whether the checkbox is checked.
+ * setCheckedAnimate(flag) - set whether the checkbox is checked, animating the change.
 
 # LICENSE
 
