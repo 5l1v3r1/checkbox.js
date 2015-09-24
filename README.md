@@ -28,6 +28,10 @@ Once your checkbox has been created, you can use the following functions on it:
  * setColor(color) - change the color of the checkmark.
  * setVisible(flag) - set whether or not the checkbox is on-screen. While the checkbox is visible, it listens for screen resolution updates from crystal. Thus, **you must remember to setVisible(true) when creating a checkbox and to setVisible(false) when you no longer need it.**
 
+# Dependencies of 3.0
+
+This does not depend on any 3rd party libraries, but it does use `window.requestAnimationFrame` and `window.cancelAnimationFrame`. If you want to support IE9, you must setup a polyfill for these functions.
+
 # Usage of 3.0
 
 A new version of checkbox.js is underway. This is how it will be used.
