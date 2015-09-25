@@ -10,16 +10,16 @@
       document.body.appendChild(checkbox.element());
     };
     function makeGreen() {
-      checkbox.setColor([0, 1, 0]);
+      checkbox.element().style.color = '#0f0';
     }
     function makeBlue() {
-      checkbox.setColor([101/255, 188/255, 212/255]);
+      checkbox.element().style.color = '#65bcd4';
     }
     </script>
   </head>
   <body>
     <button onclick="makeGreen()">Make Green</button>
     <button onclick="makeBlue()">Make Blue</button>
-    <br />
+    <br>
   </body>
 </html>

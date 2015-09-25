@@ -1,5 +1,7 @@
 (function() {
 
+  var ANIMATION_DURATION = 150;
+
   var XMLNS = 'http://www.w3.org/2000/svg'
   var DEFAULT_SIZE = 22;
   var MAX_SHIELD_WIDTH = 18;
@@ -45,22 +47,27 @@
     this._element.style.width = DEFAULT_SIZE + 'px';
     this._element.style.height = DEFAULT_SIZE + 'px';
     this._element.style.cursor = 'pointer';
-    
+    this._element.style.display = 'inline-block';
+
     this._checked = true;
+    this._animationStart = null;
     this._animationFrame = null;
+
+    this.onChange = null;
+    this._registerMouseEvents();
   }
 
   Checkbox.prototype.element = function() {
     return this._element;
   };
-  
+
   Checkbox.prototype.getChecked = function() {
     return this._checked;
   };
-  
+
   Checkbox.prototype.setChecked = function(c) {
     if (this._animationFrame !== null) {
-      window.clearAnimationFrame(this._animationFrame);
+      window.cancelAnimationFrame(this._animationFrame);
       this._animationFrame = null;
     }
     this._checked = c;
@@ -69,6 +76,51 @@
     } else {
       this._shield.setAttribute('width', MAX_SHIELD_WIDTH + '');
     }
+  };
+
+  Checkbox.prototype.setCheckedAnimate = function(c) {
+    if (c === this._checked) {
+      return;
+    }
+    this._checked = c;
+
+    var startTime = new Date().getTime();
+    if (this._animationFrame !== null) {
+      window.cancelAnimationFrame(this._animationFrame);
+      startTime -= ANIMATION_DURATION - (startTime - this._animationStart);
+    }
+
+    this._animationStart = startTime;
+    this._animationFrame = window.requestAnimationFrame(this._animate.bind(this));
+  };
+
+  Checkbox.prototype._animate = function() {
+    var elapsed = new Date().getTime() - this._animationStart;
+    if (elapsed > ANIMATION_DURATION) {
+      elapsed = ANIMATION_DURATION;
+      this._animationFrame = null;
+    } else {
+      this._animationFrame = window.requestAnimationFrame(this._animate.bind(this));
+    }
+
+    var percent = elapsed / ANIMATION_DURATION;
+    var width;
+    if (this._checked) {
+      width = MAX_SHIELD_WIDTH * (1 - percent);
+    } else {
+      width = MAX_SHIELD_WIDTH * percent;
+    }
+    this._shield.setAttribute('width', '' + width);
+    this._shield.setAttribute('x', '' + (20-width));
+  };
+
+  Checkbox.prototype._registerMouseEvents = function() {
+    this._element.addEventListener('click', function() {
+      this.setCheckedAnimate(!this._checked);
+      if ('function' === typeof this.onChange) {
+        this.onChange();
+      }
+    }.bind(this));
   };
 
   function setSVGAttributes(element, attributes) {

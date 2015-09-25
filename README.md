@@ -42,7 +42,7 @@ Include the checkbox.3.0.0.js file in your webpage:
 <script src="checkbox.3.0.0.js"></script>
 ```
 
-Now you can instantiate a checkbox as follows:
+Now you can create a checkbox from JavaScript as follows:
 
 ```javascript
 var checkbox = new window.checkboxjs.Checkbox();
