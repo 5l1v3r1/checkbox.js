@@ -5,9 +5,15 @@
     <script src="checkbox.3.0.0.js"></script>
     <script>
     var checkbox;
+    var labeledCheckbox
     window.onload = function() {
       checkbox = new window.checkboxjs.Checkbox();
       document.body.appendChild(checkbox.element());
+
+      document.body.appendChild(document.createElement('br'));
+
+      var labeled = new window.checkboxjs.LabeledCheckbox('Labeled checkbox');
+      document.body.appendChild(labeled.element());
     };
     function makeGreen() {
       checkbox.element().style.color = '#0f0';

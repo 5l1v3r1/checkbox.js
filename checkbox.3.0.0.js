@@ -5,6 +5,7 @@
   var XMLNS = 'http://www.w3.org/2000/svg'
   var DEFAULT_SIZE = 22;
   var MAX_SHIELD_WIDTH = 18;
+  var DEFAULT_LABEL_MARGIN = 5;
 
   function Checkbox() {
     this._svg = document.createElementNS(XMLNS, 'svg');
@@ -44,10 +45,12 @@
 
     this._element = document.createElement('div');
     this._element.appendChild(this._svg);
-    this._element.style.width = DEFAULT_SIZE + 'px';
-    this._element.style.height = DEFAULT_SIZE + 'px';
-    this._element.style.cursor = 'pointer';
-    this._element.style.display = 'inline-block';
+    setStyle(this._element, {
+      width: DEFAULT_SIZE + 'px',
+      height: DEFAULT_SIZE + 'px',
+      cursor: 'pointer',
+      display: 'inline-block'
+    });
 
     this._checked = true;
     this._animationStart = null;
@@ -115,12 +118,61 @@
   };
 
   Checkbox.prototype._registerMouseEvents = function() {
-    this._element.addEventListener('click', function() {
+    this._element.addEventListener('click', function(e) {
+      e.stopPropagation();
       this.setCheckedAnimate(!this._checked);
       if ('function' === typeof this.onChange) {
         this.onChange();
       }
     }.bind(this));
+  };
+
+  function LabeledCheckbox(text) {
+    this._element = document.createElement('div');
+    setStyle(this._element, {
+      height: DEFAULT_SIZE + 'px',
+      display: 'inline-block',
+      cursor: 'pointer'
+    });
+
+    this._element.addEventListener('click', function() {
+      this._checkbox.setCheckedAnimate(!this._checkbox.getChecked());
+      if ('function' === typeof this._checkbox.onChange) {
+        this._checkbox.onChange();
+      }
+    }.bind(this));
+
+    this._checkbox = new Checkbox();
+    this._checkbox.element().style.float = 'left';
+    this._element.appendChild(this._checkbox.element());
+
+    this._label = document.createElement('label');
+    this._label.innerText = text || '';
+    setStyle(this._label, {
+      lineHeight: DEFAULT_SIZE + 'px',
+      float: 'left',
+      marginLeft: DEFAULT_LABEL_MARGIN + 'px',
+      pointerEvents: 'none',
+      '-webkit-touch-callout': 'none',
+      '-webkit-user-select': 'none',
+      '-khtml-user-select': 'none',
+      '-moz-user-select': 'none',
+      '-ms-user-select': 'none',
+      'user-select': 'none'
+    });
+    this._element.appendChild(this._label);
+  }
+
+  LabeledCheckbox.prototype.checkbox = function() {
+    return this._checkbox;
+  };
+
+  LabeledCheckbox.prototype.element = function() {
+    return this._element;
+  };
+
+  LabeledCheckbox.prototype.label = function() {
+    return this._label;
   };
 
   function setSVGAttributes(element, attributes) {
@@ -131,6 +183,17 @@
     }
   }
 
-  window.checkboxjs = {Checkbox: Checkbox};
+  function setStyle(element, attributes) {
+    var keys = Object.keys(attributes);
+    for (var i = 0, len = keys.length; i < len; ++i) {
+      var key = keys[i];
+      element.style[key] = attributes[key];
+    }
+  }
+
+  window.checkboxjs = {
+    Checkbox: Checkbox,
+    LabeledCheckbox: LabeledCheckbox
+  };
 
 })();
